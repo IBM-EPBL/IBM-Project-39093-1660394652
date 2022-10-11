@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flask Authentication</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css" />
+    <!-- JavaScript Bundle with Popper -->
+<!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+</head>
+
+<body>  
+<!-- <section class="hero is-fullheight" style="background-image:linear-gradient(#7f59b0,#fdae38)"> -->
+    <section class="hero is-fullheight" style="background-image:url(https://img.freepik.com/free-vector/abstract-classic-blue-screensaver_23-2148421853.jpg?w=2000); background-position: center;background-repeat: no-repeat;background-size: cover;">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <!-- <a class="navbar-brand" href="#">Navbar</a> -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="{{ url_for('main.index') }}">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('main.aboutus') }}">About Us</a>
+              </li>
+
+
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('main.profile') }}">My Profile</a>
+                </li>
+                {% endif %}
+                {% if not current_user.is_authenticated %}
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
+                </li>
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('auth.signup') }}">Sign Up</a>
+                </li>
+                {% endif %}
+                {% if current_user.is_authenticated %}
+                <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
+                </li>
+                {% endif %}
+             
+            </ul>
+          </div>
+        </div>
+      </nav>
+
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</section>
+</body>
+
+</html>
